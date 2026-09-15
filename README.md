@@ -30,24 +30,26 @@ Con eso el router rutea entre VLANs y hace de intermediario DHCP.
 | E0/0.100 | 100 | 192.168.1.1/24 | Gateway de Servidores |
 | E0/0.200 | 200 | 192.168.2.1/24 | Gateway de Clientes + DHCP Relay |
 
-**conf term
-hostname RT-03
-interface Se1/1
-ip address 10.0.2.2 255.255.255.252
-clock rate 64000
-no shutdown
-exit
-interface Gig2/0.100
-encapsulation dot1Q 100
-ip address 192.168.1.1 255.255.255.0
-no shut
-exit
-interface Gig2/0.200
-encapsulation dot1Q 200
-ip address 192.168.2.1 255.255.255.0
-ip helper-address 192.168.1.10
-no shut
-exit
-ip route 192.168.3.0 255.255.255.0 10.0.2.1
-exit
-copy running-config startup-config**
+```RT-03
+conf t
+ hostname RT-03
+ interface Se1/1
+  ip address 10.0.2.2 255.255.255.252
+  clock rate 64000
+  no shutdown
+  exit
+ interface Gig2/0.100
+  encapsulation dot1Q 100
+  ip address 192.168.1.1 255.255.255.0
+  no shutdown
+  exit
+ interface Gig2/0.200
+  encapsulation dot1Q 200
+  ip address 192.168.2.1 255.255.255.0
+  ip helper-address 192.168.1.10
+  no shutdown
+  exit
+ ip route 192.168.3.0 255.255.255.0 10.0.2.1
+ exit
+ copy running-config startup-config
+```
